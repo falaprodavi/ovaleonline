@@ -1,0 +1,138 @@
+{% extends "base.html" %} {% load static %} {% block 'body' %}
+
+
+<div class="results-page">
+    <aside class="sidebar">
+        <!-- Aqui vai a busca, filtros, etc -->
+        <section class="categorias section">
+        <h2 class="titulos">Explore o Vale</h2>
+        <h3 class="subtitulos fw-light">Vamos descobrir os melhores lugares para comer, relexar e fazer compras perto de você.</h3>
+         <!-- Formulário de busca -->
+         <form action="{% url 'buscar' %}" method="GET" class="search-form">
+            <input type="text" name="titulo" placeholder="Título" value="{{ titulo }}">
+        
+            <select name="cidade" id="cidade">
+                <option value="">Selecione a Cidade</option>
+                {% for cidade in cidades %}
+                    <option value="{{ cidade.id }}" {% if cidade.id|stringformat:"s" == cidade_id %}selected{% endif %}>
+                        {{ cidade.nome }}
+                    </option>
+                {% endfor %}
+            </select>
+        
+            <select name="bairro" id="bairro">
+                <option value="">Selecione o Bairro</option>
+                {% for bairro in bairros %}
+                    <option value="{{ bairro.id }}" {% if bairro.id|stringformat:"s" == bairro_id %}selected{% endif %}>
+                        {{ bairro.nome }}
+                    </option>
+                {% endfor %}
+            </select>
+        
+            <!-- Select de Categoria Principal -->
+            <select name="categoria" id="categoria">
+                <option value="">Selecione a Categoria</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}" {% if categoria.id|stringformat:"s" in categorias_id %}selected{% endif %}>
+                        {{ categoria.nome }}
+                    </option>
+                {% endfor %}
+            </select>
+        
+            <!-- Select de Subcategoria (escondido por padrão) -->
+            <select name="subcategoria" id="subcategoria" style="display: none;">
+                <option value="">Todas Subcategorias</option>
+                {% for categoria in categorias %}
+                    {% for subcategoria in categoria.subcategorias.all %}
+                        <option value="{{ subcategoria.id }}" data-parent="{{ categoria.id }}" {% if subcategoria.id|stringformat:"s" in categorias_id %}selected{% endif %}>
+                            {{ subcategoria.nome }}
+                        </option>
+                    {% endfor %}
+                {% endfor %}
+            </select>
+        
+            <button type="submit">Buscar</button>
+        </form>
+        
+    </section>
+
+
+
+    </aside>
+    <section class="main-content">
+        <!-- Aqui vão os resultados -->
+        <h2 class="title_results">Os melhores estabelecimentos do Vale do Paraíba!</h2>      
+
+        <div class="cards-container">
+         {% if page_obj %}
+        {% for estabelecimento in page_obj %}
+        <div class="card">
+            <div class="card-image">
+                {% with estabelecimento.imagens.first as imagem_principal %}
+                    <a href="{% url 'detalhes' estabelecimento.slug %}">
+                        {% if imagem_principal %}
+                        
+                           <img src="{{ imagem_principal.imagem.url }}" alt="{{ estabelecimento.titulo }}">
+                        {% else %}
+                            <img src="/static/img/sem-imagem.jpg" alt="Sem imagem disponível">
+                        {% endif %}
+                    </a>
+                    {% endwith %}
+                    
+
+                    <!-- Botão WhatsApp -->
+                {% if estabelecimento.whatsapp %}
+                <a href="https://wa.me/{{ estabelecimento.whatsapp }}" class="badge price" target="_blank">
+                    WhatsApp                 
+                </a>
+            {% endif %}
+                
+               
+            </div>
+            <div class="card-content">
+            
+
+              {% for categoria in estabelecimento.categorias.all %}
+                        <span class="sponsored">{{ categoria.nome }}</span>
+                    {% endfor %}
+     
+                <h3>{{ estabelecimento.titulo }}</h3>
+                <p>{{ estabelecimento.bairro.nome }}, {{ estabelecimento.cidade.nome }}</p>
+            </div>
+        </div>
+        {% endfor %}
+
+
+        
+
+    {% else %}
+        <p>Nenhum estabelecimento encontrado.</p>
+    {% endif %}
+    </section>
+
+    
+</div>
+  
+<div class="container section">
+    <!-- Content here -->
+
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page=1&titulo={{ request.GET.titulo }}&cidade={{ request.GET.cidade }}&bairro={{ request.GET.bairro }}&categorias={{ request.GET.categorias }}">Primeira</a>
+        <a href="?page={{ page_obj.previous_page_number }}&titulo={{ request.GET.titulo }}&cidade={{ request.GET.cidade }}&bairro={{ request.GET.bairro }}&categorias={{ request.GET.categorias }}">Anterior</a>
+    {% endif %}
+
+    <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}&titulo={{ request.GET.titulo }}&cidade={{ request.GET.cidade }}&bairro={{ request.GET.bairro }}&categorias={{ request.GET.categorias }}">Próxima</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}&titulo={{ request.GET.titulo }}&cidade={{ request.GET.cidade }}&bairro={{ request.GET.bairro }}&categorias={{ request.GET.categorias }}">Última</a>
+    {% endif %}
+</div>
+  </div>
+
+ 
+
+    
+{% endblock 'body' %}

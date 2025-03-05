@@ -1,0 +1,117 @@
+{% extends "base.html" %} {% load static %} {% block 'body' %}
+<!-- Seção Hero -->
+<section class="hero section">
+   <div class="hero-container">
+      <h2 class="hero-title">Encontre o Melhor Estabelecimento para Você</h2>
+      
+      <form action="{% url 'buscar' %}" method="GET" class="search-form">
+         <input type="text" name="titulo" placeholder="Título" value="{{ titulo }}">
+     
+         <select name="cidade" id="cidade">
+             <option value="">Selecione a Cidade</option>
+             {% for cidade in cidades %}
+                 <option value="{{ cidade.id }}" {% if cidade.id|stringformat:"s" == cidade_id %}selected{% endif %}>
+                     {{ cidade.nome }}
+                 </option>
+             {% endfor %}
+         </select>
+     
+         <select name="bairro" id="bairro">
+             <option value="">Selecione o Bairro</option>
+             {% for bairro in bairros %}
+                 <option value="{{ bairro.id }}" {% if bairro.id|stringformat:"s" == bairro_id %}selected{% endif %}>
+                     {{ bairro.nome }}
+                 </option>
+             {% endfor %}
+         </select>
+     
+         <!-- Select de Categoria Principal -->
+         <select name="categoria" id="categoria">
+             <option value="">Selecione a Categoria</option>
+             {% for categoria in categorias %}
+                 <option value="{{ categoria.id }}" {% if categoria.id|stringformat:"s" in categorias_id %}selected{% endif %}>
+                     {{ categoria.nome }}
+                 </option>
+             {% endfor %}
+         </select>
+     
+
+     
+         <button type="submit">Buscar</button>
+     </form>
+
+   </div>
+</section>
+<!-- Lista de Categorias -->
+<div class="container section">
+   <h2 class="titulos">Categorias</h2>
+   <h3 class="subtitulos fw-light">Cities you must explore this summer</h3>
+   <div class="categoria-list">
+      {% for categoria in categorias %}
+      <a href="{% url 'buscar' %}?categoria={{ categoria.id }}" class="categoria-btn">
+         <div class="categoria-item">
+            {% if categoria.imagem %}
+            <img src="{{ categoria.imagem.url }}" alt="{{ categoria.nome }}">
+            {% endif %}
+            <span>{{ categoria.nome }}</span>
+         </div>
+      </a>
+      {% endfor %}
+   </div>
+</div>
+<div class="container section">
+   <h2 class="titulos">Estabelecimentos em Destaque</h2>
+   <h3 class="subtitulos fw-light">Cities you must explore this summer</h3>
+   <div class="cards-container">
+      {% for estabelecimento in estabelecimentos %}
+      <div class="card">
+         <div class="card-image">
+            {% with estabelecimento.imagens.first as imagem_principal %}
+            <a href="{% url 'detalhes' estabelecimento.slug %}">
+            {% if imagem_principal %}
+            <img src="{{ imagem_principal.imagem.url }}" alt="{{ estabelecimento.titulo }}">
+            {% else %}
+            <img src="/static/img/sem-imagem.jpg" alt="Sem imagem disponível">
+            {% endif %}
+            </a>
+            {% endwith %}
+            <!-- Botão WhatsApp -->
+            {% if estabelecimento.whatsapp %}
+            <a href="https://wa.me/{{ estabelecimento.whatsapp }}" class="badge price" target="_blank">
+            WhatsApp                 
+            </a>
+            {% endif %}
+         </div>
+         <div class="card-content">
+            {% for categoria in estabelecimento.categorias.all %}
+            <span class="sponsored">{{ categoria.nome }}</span>
+            {% endfor %}
+            <h3>{{ estabelecimento.titulo }}</h3>
+            <p>{{ estabelecimento.bairro.nome }}, {{ estabelecimento.cidade.nome }}</p>
+         </div>
+      </div>
+      {% endfor %}
+   </div>
+</div>
+<section>
+   <div class="parallax">
+      oi
+   </div>
+</section>
+<div class="container section">
+   <h2 class="titulos">Cidades em Destaque</h2>
+   <h3 class="subtitulos fw-light">Cities you must explore this summer</h3>
+   <div class="city-container">
+      {% for cidade in cidades %}
+      <a href="{% url 'buscar' %}?cidade={{ cidade.id }}">
+         <div class="city-card " style="background-image: url('{{ cidade.foto.url }}');">
+            <span class="location-tag">{{ cidade.num_estabelecimentos }} Empresa{{ cidade.num_estabelecimentos|pluralize:"s" }}</span>
+            <div class="content">
+               <h3>{{ cidade.nome }}</h3>
+            </div>
+         </div>
+      </a>
+      {% endfor %}
+   </div>
+</div>
+{% endblock 'body' %}

@@ -1,0 +1,91 @@
+{% extends "base.html" %} {% load static %} {% block 'body' %}
+<div class="container mt-4 section">
+   <!-- Logo -->
+   <div class="text-center">
+      <img src="{{ estabelecimento.logo.url }}" alt="{{ estabelecimento.titulo }}" class="logo-img">
+   </div>
+   <!-- Título e Localização -->
+   <h1 class="text-center">{{ estabelecimento.titulo }}</h1>
+   <p class="text-center text-muted">
+      {{ estabelecimento.endereco }}, {{ estabelecimento.bairro.nome }}, {{ estabelecimento.cidade.nome }} - SP
+   </p>
+   <p class="text-center text-muted ">  
+      {% for categoria in estabelecimento.categorias.all %}
+          {{ categoria.nome }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+   </p>
+   <div class="row">
+      <div class="col-md-6">
+         <!-- Galeria de Imagens -->
+         <div id="galleryCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+            <div class="carousel-inner">
+               {% for imagem in estabelecimento.imagens.all %}
+               <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                  <img src="{{ imagem.imagem.url }}" class="d-block w-100" alt="Imagem de {{ estabelecimento.titulo }}">
+               </div>
+               {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+         </div>
+      </div>
+      <div class="col col-md-6">
+         <!-- Mapa (Google Maps) -->
+         <div class="mt-4">
+            <iframe 
+               width="100%" 
+               height="500" 
+               style="border:0" 
+               loading="lazy" 
+               allowfullscreen
+               referrerpolicy="no-referrer-when-downgrade"
+               src="https://www.google.com/maps?q={{ estabelecimento.endereco|urlencode }}&output=embed">
+            </iframe>
+         </div>
+         <div class="mt-4">
+            <div class="social-links">
+               {% if estabelecimento.whatsapp %}
+               <a href="https://wa.me/{{ estabelecimento.whatsapp }}?text=Contato%20pelo%20site%20O%20Vale%20On-line" target="_blank" class="btn btn-outline-success btn-sm">WhatsApp</a>
+               {% endif %}
+               {% if estabelecimento.email %}
+               <a href="mailto:{{ estabelecimento.email }}" target="_blank" class="btn btn-outline-success btn-sm">E-mail</a>
+               {% endif %}
+               {% if estabelecimento.instagram %}
+               <a href="{{ estabelecimento.instagram }}" target="_blank" class="btn btn-outline-success btn-sm">Instagram</a>
+               {% endif %}
+               {% if estabelecimento.facebook %}
+               <a href="{{ estabelecimento.facebook }}" target="_blank" class="btn btn-outline-success btn-sm">Facebook</a>
+               {% endif %}
+               {% if estabelecimento.tiktok %}
+               <a href="{{ estabelecimento.tiktok }}" target="_blank" class="btn btn-outline-success btn-sm">TikTok</a>
+               {% endif %}
+               {% if estabelecimento.youtube %}
+               <a href="{{ estabelecimento.youtube }}" target="_blank" class="btn btn-outline-success btn-sm">YouTube</a>
+               {% endif %}
+               {% if estabelecimento.linkedin %}
+               <a href="{{ estabelecimento.linkedin }}" target="_blank" class="btn btn-outline-success btn-sm">LinkedIn</a>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="row">
+
+    <div class="col-md-12">
+        <!-- Descrição -->
+        <div class="mt-4">
+            <h3>Sobre</h3>
+            <p>{{ estabelecimento.descricao|safe }}</p>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+{% endblock 'body' %}

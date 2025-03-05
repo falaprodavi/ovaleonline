@@ -1,0 +1,43 @@
+{% load static %}
+<footer class="footer">
+   <div class="container">
+      <div class="footer-content">
+         <!-- Coluna 01: Logo + Texto -->
+         <div class="col-md-3">
+            <img src="{% static '/img/logo.png' %}" alt="Logo" height="30px">
+            <p class="mt-4">Nosso site é um diretório completo com sistema de reservas integrado e marketplace multi-vendedor.</p>
+         </div>
+         <!-- Coluna 02: Listagem dinâmica das categorias -->
+         <div class="col-md-2">
+            <h4>Categorias</h4>
+            <ul class="mt-4">
+               {% for categoria in categorias %}
+               <li><a href="{% url 'buscar' %}?categoria={{ categoria.id }}">{{ categoria.nome }}</a></li>
+               {% endfor %}
+            </ul>
+         </div>
+         <!-- Coluna 03: Listagem dinâmica das categorias -->
+         <div class="col-md-2">
+            <h4>Cidades</h4>
+            <ul class="mt-4">
+               {% for cidade in cidades %}
+               <li><a href="{% url 'buscar' %}?cidade={{ cidade.id }}">{{ cidade.nome }}</a></li>
+               {% endfor %}
+            </ul>
+         </div>
+         <!-- Coluna 04: Contato -->
+         <div class="col-md-3">
+            <h4 >Contato</h4>
+            <p class="mt-4"> Vale do Paraíba, SP, Brasil</p> 
+            <div class="payment-icons">
+               <img src="{% static 'img/sem-imagem.jpg' %}" alt="Visa">
+               <img src="{% static 'img/sem-imagem.jpg' %}" alt="MasterCard">
+               <img src="{% static 'img/sem-imagem.jpg' %}" alt="PayPal">
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="footer-bottom">
+      <p>© {{ year }} O Vale On-line. Todos os direitos reservados.</p>
+   </div>
+</footer>
