@@ -1,4 +1,12 @@
-{% extends "base.html" %} {% load static %} {% block 'body' %}
+{% extends "base.html" %} 
+{% load static %} 
+
+
+{% block 'title' %}
+    Quem Somos - O Vale On-Line
+{% endblock %}
+
+{% block 'body' %}
 <!-- Hero Section -->
 <header class="bg-custom text-white text-center py-5">
     <div class="container">
@@ -16,7 +24,7 @@
             <p>Nosso objetivo é proporcionar soluções que realmente façam a diferença para nossos clientes e parceiros.</p>
         </div>
         <div class="col-md-6">
-            <img src="https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZW1wcmVzYXxlbnwwfHwwfHx8MA%3D%3D alt="Nossa História" class="img-fluid rounded">
+            <img src="https://images.unsplash.com/photo-1531973576160-7125cd663d86" alt="Nossa História" class="img-fluid rounded">
         </div>
     </div>
 </section>
@@ -46,27 +54,6 @@
     </div>
 </section>
 
-<!-- Missão, Visão e Valores -->
-<section class="container my-5">
-    <div class="row">
-        <div class="col-md-4">
-            <h3>Missão</h3>
-            <p>Nosso propósito é entregar [descrição da missão].</p>
-        </div>
-        <div class="col-md-4">
-            <h3>Visão</h3>
-            <p>Queremos ser reconhecidos como [descrição da visão].</p>
-        </div>
-        <div class="col-md-4">
-            <h3>Valores</h3>
-            <ul>
-                <li>Compromisso</li>
-                <li>Excelência</li>
-                <li>Transparência</li>
-                <li>Inovação</li>
-            </ul>
-        </div>
-    </div>
-</section>
+
   
 {% endblock 'body' %}

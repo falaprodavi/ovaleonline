@@ -1,4 +1,12 @@
-{% extends "base.html" %} {% load static %} {% block 'body' %}
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block 'title' %}
+{{ estabelecimento.titulo }} - O Vale On-Line
+{% endblock %}
+
+
+{% block 'body' %}
 <div class="container mt-4 section">
    <!-- Logo -->
    <div class="text-center">
