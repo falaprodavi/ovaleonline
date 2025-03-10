@@ -1,0 +1,35 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+
+{% block 'title' %}
+    Quem Somos - O Vale On-Line
+{% endblock %}
+
+{% block 'body' %}
+<!-- Hero Section -->
+<header class="bg-custom text-white text-center py-5">
+    <div class="container">
+        <h1>Quem Somos</h1>
+        <p class="lead">Conheça mais sobre a nossa empresa e equipe</p>
+    </div>
+</header>
+
+<!-- Sobre a Empresa -->
+<section class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Nossa História</h2>
+            <p>Fundada em [ano], nossa empresa tem como missão oferecer [descrição breve da missão]. Ao longo dos anos, nos tornamos referência no setor, graças ao nosso compromisso com qualidade e inovação.</p>
+            <p>Nosso objetivo é proporcionar soluções que realmente façam a diferença para nossos clientes e parceiros.</p>
+        </div>
+        <div class="col-md-6">
+            <img src="https://images.unsplash.com/photo-1531973576160-7125cd663d86" alt="Nossa História" class="img-fluid rounded">
+        </div>
+    </div>
+</section>
+
+
+
+  
+{% endblock 'body' %}
