@@ -15,7 +15,7 @@ def carregar_bairros(request):
 def home(request):
     cidades = Cidade.objects.annotate(num_estabelecimentos=Count("estabelecimento")).order_by("-num_estabelecimentos")[:4]
     categorias = Categoria.objects.filter(categoria_pai__isnull=True) 
-    estabelecimentos_destaque = Estabelecimento.objects.filter(destaque=True).order_by("-id")[:9]
+    estabelecimentos_destaque = Estabelecimento.objects.filter(destaque=True).order_by("-id")[:6]
     
     return render(request, "home.html", {
         "cidades": cidades,
@@ -97,4 +97,3 @@ def quemsomos(request):
 
 def contato(request):
     return render(request, 'contato.html')
-

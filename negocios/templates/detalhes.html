@@ -56,26 +56,26 @@
          </div>
          <div class="mt-4">
             <div class="social-links">
-               {% if estabelecimento.whatsapp %}
-               <a href="https://wa.me/{{ estabelecimento.whatsapp }}?text=Contato%20pelo%20site%20O%20Vale%20On-line" target="_blank" class="btn btn-outline-success btn-sm">WhatsApp</a>
-               {% endif %}
                {% if estabelecimento.email %}
-               <a href="mailto:{{ estabelecimento.email }}" target="_blank" class="btn btn-outline-success btn-sm">E-mail</a>
+               <a href="mailto:{{ estabelecimento.email }}" >E-mail</a>
                {% endif %}
+               {% if estabelecimento.whatsapp %}
+               <a href="https://wa.me/{{ estabelecimento.whatsapp }}?text=Contato%20pelo%20site%20O%20Vale%20On-line" target="_blank">WhatsApp</a>
+               {% endif %}               
                {% if estabelecimento.instagram %}
-               <a href="{{ estabelecimento.instagram }}" target="_blank" class="btn btn-outline-success btn-sm">Instagram</a>
+               <a href="{{ estabelecimento.instagram }}" target="_blank">Instagram</a>
                {% endif %}
                {% if estabelecimento.facebook %}
-               <a href="{{ estabelecimento.facebook }}" target="_blank" class="btn btn-outline-success btn-sm">Facebook</a>
+               <a href="{{ estabelecimento.facebook }}" target="_blank" >Facebook</a>
                {% endif %}
                {% if estabelecimento.tiktok %}
-               <a href="{{ estabelecimento.tiktok }}" target="_blank" class="btn btn-outline-success btn-sm">TikTok</a>
+               <a href="{{ estabelecimento.tiktok }}" target="_blank" >TikTok</a>
                {% endif %}
                {% if estabelecimento.youtube %}
-               <a href="{{ estabelecimento.youtube }}" target="_blank" class="btn btn-outline-success btn-sm">YouTube</a>
+               <a href="{{ estabelecimento.youtube }}" target="_blank" >YouTube</a>
                {% endif %}
                {% if estabelecimento.linkedin %}
-               <a href="{{ estabelecimento.linkedin }}" target="_blank" class="btn btn-outline-success btn-sm">LinkedIn</a>
+               <a href="{{ estabelecimento.linkedin }}" target="_blank" >LinkedIn</a>
                {% endif %}
             </div>
          </div>
